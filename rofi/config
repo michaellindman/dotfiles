@@ -1,0 +1,22 @@
+rofi.location: 0
+rofi.color-enabled:     true
+!                       'background', 'border'
+#rofi.color-window:      #2f343f, argb:dc111111
+#rofi.color-window:      argb:dc111111, argb:dc111111
+rofi.color-window:      argb:ff0b0c10, argb:cc2f343f, #732d87
+
+! State:                'bg',          'fg',   'bgalt',        'hlbg',  'hlfg'
+
+rofi.color-normal:      argb:00000000, #f3f4f5,  argb:00000000, argb:00000000,  #732d87
+#rofi.color-normal:      #2f343f,       #f3f4f5, argb:11FFFFFF, #16a086,  #f3f4f5
+rofi.color-urgent:      argb:00000000, #f99,    argb:00000000, #f99,     #f3f4f5
+rofi.color-active:      argb:00000000, #732d87, argb:00000000, #732d87,  #FFFFFF
+rofi.separator-style:   none
+rofi.fullscreen:        false
+rofi.lines:             6
+rofi.width:             45
+rofi.padding:           20
+rofi.hide-scrollbar:    true
+rofi.eh:                2
+rofi.bw: 2
+rofi.font: Noto Sans 12

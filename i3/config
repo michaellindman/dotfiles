@@ -1,0 +1,430 @@
+# Sets the mod key to the windows key
+#test
+
+set $mod Mod4
+# startup applications
+exec Discord
+#exec nextcloud
+exec_always compton
+
+# Disable sleep
+exec xset -dpms s off
+# Set certain applications to be floating when they are run
+for_window [class="discord"] floating enable, border normal, resize set 1310 720
+for_window [class="KeePass2"] floating enable, border normal
+#for_window [title="Open Database File"] floating enable
+for_window [class="Pavucontrol"] floating enable, border normal
+for_window [class="Blivet-gui"] floating enable
+for_window [class="obs"] floating enable, border normal
+for_window [class="Virt-manager"] floating enable, border normal
+for_window [class="Nvidia-settings"] floating enable
+for_window [class="Sqlectron"] floating enable, border normal
+for_window [class="Gimp-2.10"] floating enable, border normal
+for_window [title="NBTExplorer"] floating enable, border normal
+for_window [class="Evolution"] floating enable, border normal
+for_window [class="Kid3"] floating enable, border normal
+for_window [class="processing-app-Base"] floating enable, border normal, resize set 836 656
+for_window [class="KeePassXC"] floating enable, border normal, resize set 1010 690
+for_window [class="Arandr"] floating enable, border normal
+for_window [class="Meld"] floating enable, border normal
+for_window [class="Lxappearance"] floating enable, border normal
+for_window [class="Alacritty" floating] border normal, resize set 934 548
+for_window [class="Wireshark"] border normal, resize set 1288 828
+for_window [class="Code" floating] border normal, resize set 1593 1035
+for_window [class="Keybase"] floating enable, border normal, resize 1001 685
+for_window [class="libreoffice" floating] border normal, resize set 1285 1050
+for_window [class="Alacritty" title="cmus *"] floating enable, border normal, resize 930 524
+for_window [class="Postman"] floating enable, border normal, resize 1280 800
+for_window [class="Transmission-gtk"] floating enable, border normal, resize 761 515
+for_window [class="Yubico Authenticator"] floating enable, border normal, resize 441 806
+for_window [class="Spotify"] floating enable, border normal, resize set 1240 740
+for_window [title="lstopo"] floating enable, border normal
+for_window [title="WebP viewer"] floating  enable, border normal
+for_window [class="Teensy"] floating enable, border normal
+for_window [class="Wireshark"] floating enable, border normal
+
+# Games
+for_window [class="Steam"] floating enable
+for_window [class="Lutris"] floating enable
+for_window [class="MultiMC5"] floating enable, border normal
+for_window [class="NEOScavenger"] floating enable, border normal, resize set 1360 815
+for_window [class="Dolphin-emu"] floating enable, border normal
+for_window [class="Basingstoke.x86_64"] floating enable, resize set 2560 1440
+for_window [class="FTL.amd64"] floating enable, border normal, resize set 1680 960
+for_window [class="Minecraft *" floating] border normal, resize set 1117 500
+
+# Gnome apps
+for_window [class="Nautilus"] floating enable
+for_window [class="Gnome-system-monitor"] floating enable
+for_window [class="Eog"] floating enable, resize set 1300 780
+for_window [class="Baobab"] floating enable
+for_window [class="Gnome-disks"] floating enable
+for_window [class="Gedit"] floating enable
+for_window [class="File-roller"] floating enable
+for_window [class="Totem"] floating enable, resize set 1300 780
+for_window [class="Evince"] floating enable, resize set 1048 1033
+for_window [class="Org.gnome.gedit"] floating enable, border 0, resize set 903 562
+for_window [class="Gnome-system-monitor"] floating enable, border normal
+
+# windowed popups
+for_window [class="Firefox" title="About Mozilla Firefox"] floating enable
+for_window [class="Firefox" title="^Library$"] floating enable, border normal, resize set 850 580
+for_window [class="Firefox" title="Private Browsing"] floating enable, resize set 1300 780
+for_window [class="Steam" title="Steam Login"] floating enable
+for_window [class="Steam" title="Friends List"] floating enable
+for_window [class="Steam" title="Steam - Shutdown"] floating enable
+for_window [class="Steam" title="Settings"] floating enable
+for_window [title="Task Manager - Chromium"] floating enable, border normal, resize set 1100 600
+
+# Enable floating for windows that need it
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# i2p
+for_window [class="com-muwire-gui-Launcher"] floating enable, border normal
+#for_window [class="^.*"] border pixel 0
+
+# gaps / border config
+
+default_border pixel 1
+
+gaps inner 10
+gaps outer 10
+
+smart_gaps on
+
+bindsym Shift+F1 gaps inner all set 0, gaps outer all set 0
+bindsym Shift+F2 gaps inner all set 10, gaps outer all set 10
+
+# fonts config
+
+font pango:Cantarell 10
+
+# wallpaper config
+
+set $wallpaper ~/Pictures/Wallpaper/blended_background_2016-10-27.png
+exec_always feh --bg-scale $wallpaper
+
+bindsym $Mod+F11 exec feh --bg-scale $wallpaper
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec WINIT_HIDPI_FACTOR=1 alacritty
+#bindsym $mod+Return exec gnome-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start rofi (a program launcher)
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+z exec rofi -show windowcd
+
+# custom
+bindsym $mod+Shift+Tab [class="discord"] focus
+
+mode "applications" {
+    # key bindings for running an application
+    bindsym b exec ~/.local/bin/firefox; mode "default"
+    #bindsym b exec chromium-browser; mode "default"
+    bindsym d exec Discord; mode "default"
+    bindsym f exec nautilus; mode "default"
+
+	# Exit back to default i3 mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+o mode "default"
+}
+
+mode "games" {
+    # key bindings for running games
+    bindsym m exec MultiMC; mode "default"
+    bindsym f exec factorio; mode "default"
+    bindsym y exec openmw --load-savegame ~/.local/share/openmw/saves/Fraya/Quicksave.omwsave; mode "default"
+
+	# Exit back to default i3 mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+o mode "default"
+}
+
+mode "tools" {
+    bindsym s exec status -db /mnt/snapshots;  mode "default"
+    bindsym t exec timer 15m "your pizza is ready"; mode "default"
+    bindsym x exec xprop; mode "default"
+    bindsym w exec xwininfo; mode "default"
+
+	# Exit back to default i3 mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+o mode "default"
+}
+
+mode "display" {
+    bindsym Left exec rotate-display left
+    bindsym Right exec rotate-display right
+    bindsym Up exec rotate-display normal
+    bindsym Down exec rotate-display inverted
+
+    # exit back to default i3 mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+p mode "default"
+}
+
+mode "power" {
+    bindsym f exec xset dpms force off
+    bindsym o exec xset xset -dpms s off
+
+    # exit back to default i3 mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+p mode "default"
+}
+
+bindsym $mod+o mode "applications"
+bindsym $mod+g mode "games"
+bindsym $mod+t mode "tools"
+bindsym $mod+Shift+d mode "display"
+bindsym $mod+p mode "power"
+bindsym $mod+Shift+h mode "lights"
+
+mode "lights" {
+    bindsym o exec zsh -i --login -c "lights true"
+    bindsym f exec zsh -i --login -c "lights false"
+    bindsym F12 exec zsh -i --login -c "light_bri 254"
+    bindsym F11 exec zsh -i --login -c "light_bri 150"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Screenshot
+set $screenshot_path "$HOME/Pictures/Screenshots/Screenshot from `date +%Y-%m-%d_%H:%M:%S`.png"
+
+# open screenshot folder
+bindsym $mod+Pause exec nautilus -w ~/Pictures/Screenshots
+
+bindsym $mod+Shift+F12 exec ~/bin/brightness +
+bindsym $mod+Shift+F11 exec ~/bin/brightness -
+
+bindsym Print exec gnome-screenshot --file=$screenshot_path
+bindsym $mod+Print exec gnome-screenshot --file=$screenshot_path -w
+bindsym $mod+Shift+Print exec gnome-screenshot --file=$screenshot_path -a
+# Audio
+#set $audio-device "alsa_output.pci-0000_12_00.3.analog-stereo"
+set $audio-device "alsa_output.usb-SAVITECH_Bravo-X_USB_Audio-01.analog-stereo"
+#set $audio-device "alsa_output.usb-S.M.S.L_SMSL_M2-01.analog-stereo"
+
+exec pactl set-default-source $audio-device.monitor
+exec pactl set-default-sink $audio-device
+
+# Set Audio defaults
+#exec pactl set-card-profile alsa_card.pci-0000_0e_00.1 output:hdmi-stereo-extra1
+#exec pactl set-card-profile alsa_card.pci-0000_0f_00.1 output:hdmi-stereo-extra5
+exec_always pactl set-card-profile alsa_card.pci-0000_0e_00.1 output:hdmi-stereo-extra5
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $audio-device +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $audio-device -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $audio-device toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec brightnessctl s 20%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 20%-
+# display settings
+
+set $primary_display "DP-2"
+set $second_display "DP-1"
+set $third_display "HDMI-1"
+
+#set $randr "xrandr --output DP-2 --mode 2560x1080 --refresh 60 --pos 2560x152 --rotate normal --output DP-1 --mode 2560x1440 --refresh 74.97 --pos 0x0 --rotate normal --output DVI-D-0 --off --output HDMI-2 --off --output HDMI-1 --off"
+
+#set $randr "xrandr --output DP-1 --primary --mode 2560x1440 --refresh 144 --pos 1920x0 --rotate normal --output DP-2 --mode 2560x1080 --refresh 60 --pos 4480x128 --rotate normal --output HDMI-1 --mode 1920x1080 --refresh 60 --pos 0x180 --rotate normal --output HDMI-2 --off --output DVI-D-1 --off"
+
+set $randr "xrandr --output DP-1 --primary --mode 2560x1440 --refresh 144 --pos 1920x0 --rotate normal --output DP-2 --mode 2560x1080 --refresh 60 --pos 4480x128 --rotate normal --output HDMI-1 --off --output HDMI-2 --off --output DVI-D-1 --off"
+
+# Refresh display config
+exec_always $randr
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+#bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# change focus
+bindsym $mod+Tab focus up
+
+set $workspace1 "1: "
+set $workspace2 "2: "
+set $workspace3 "3: "
+set $workspace4 "4: "
+set $workspace5 "5: "
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8: "
+set $workspace9 "9: "
+set $workspace10 "10: "
+
+workspace $workspace1 output $primary_display
+workspace $workspace2 output $primary_display
+workspace $workspace3 output $primary_display
+workspace $workspace4 output $primary_display
+workspace $workspace5 output $primary_display
+workspace $workspace6 output $second_display
+workspace $workspace8 output $second_display
+workspace $workspace9 output $second_display
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# assign applications to workspaces
+#assign [class="discord"] $workspace1
+#assign [class="Quake3-UrT.x86_64"] $workspace2
+#assign [class="wow.exe"] $workspace2
+assign [class="csgo_linux64"] $workspace9
+assign [class="Minecraft *"] $workspace9
+assign [class="factorio"] $workspace9
+assign [class="Receiver2.x86_64"] $workspace9
+# reload the configuration file
+#bindsym $mod+Shift+c reload
+
+# regenerate the configuration file
+bindsym $mod+Shift+c exec cat ~/.config/i3/*.conf > ~/.config/i3/config
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r exec cat ~/.config/i3/*.conf > ~/.config/i3/config; restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'shutdown' 'shutdown -h now' -b 'reboot' 'reboot' -b 'exit i3' 'i3-msg exit'"
+
+# i3 lockscreen
+bindsym $mod+Shift+x exec i3lock --color "$bg-color"
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+set $bg-color 	         #2f343f
+set $inactive-bg-color   #2f343f
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+set $indicator-color     #2f343f
+
+# window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color          $bg-color          $text-color           $indicator-color
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color  $indicator-color
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color  $indicator-color
+client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color           $indicator-color
+
+hide_edge_borders both
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+    position bottom
+    tray_output $primary_display
+    colors {
+	   background $bg-color
+    	       separator #757575
+	   #                  border             background         text
+	   focused_workspace  $bg-color          $bg-color          $text-color
+	   inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+       urgent_workspace   $urgent-bg-color     $urgent-bg-color    $text-color
+    }
+}
+

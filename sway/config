@@ -1,0 +1,13 @@
+include ./00-de.conf
+include ./05-autostart.conf
+include ./06-outputs.conf
+include ./07-idle.conf
+include ./08-inputs.conf
+include ./09-vars.conf
+include ./10-keybinds.conf
+include ./11-workspaces.conf
+include ./12-hotkeys.conf
+include ./13-xprops.conf
+include ./14-audio.conf
+include ./15-bar.conf
+include /etc/sway/config.d/*
