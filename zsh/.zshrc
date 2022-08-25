@@ -27,10 +27,10 @@ source $ZHOME/.zlocal
 export LANG=en_GB.UTF-8
 export EDITOR='nvim'
 export BROWSER='~/.local/bin/firefox'
-export MAKEFLAGS="-j16"
-export GOPRIVATE=$(cat $HOME/.goprivate)
+export MAKEFLAGS="-j24"
+export GOPRIVATE=$(cat $ZHOME/.goprivate)
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+#export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 
 TIMEFMT=$'real\t%E\nuser\t%U\nsys\t%S'
 #TIMEFMT=$'%J\n%U user\n%S system\n%P cpu\n%*E total'
@@ -51,7 +51,7 @@ alias getid="sleep 2 && swaymsg -t get_tree | jq -r '..|try select(.focused == t
 alias setborder="sleep 2 && swaymsg border normal"
 alias setnoborder="sleep 2 && swaymsg border none"
 alias lsdd="lsof -P -T -p $@"
-alias docker="podman"
+#alias docker="podman"
 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias zshrc="$EDITOR ~/.zshrc && source ~/.zshrc"
@@ -92,6 +92,10 @@ cdpico() { cd ~/pico }
 dps() { docker ps $@ --format="table {{.ID}}\\t{{.Image}}\\t{{.Command}}\\t{{.Status}}" }
 drmi() { docker rmi $(docker images -f dangling=true --format={{.ID}}) }
 drmc() { docker rm $(docker container ls --filter=status=exited --format={{.ID}}) }
+dcnuke() {
+    podman unmount $(podman ps --external --format={{.ID}})
+    podman rm $(podman ps --external --format={{.ID}})
+}
 
 viewcert() {
     echo | openssl s_client -servername $1 -connect $1:443 2>/dev/null | openssl x509 -text
