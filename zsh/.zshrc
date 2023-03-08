@@ -14,21 +14,15 @@ ZSH_THEME="custom"
 plugins=(git git-extras screen sudo history zsh-completions docker docker-compose firewalld)
 autoload -U compinit && compinit
 
-source <(kubectl completion zsh)
-source <(k3d completion zsh)
-
 source $ZSH/oh-my-zsh.sh
 source $ZHOME/.zprofile
 source $ZHOME/.zlocal
 
-#eval "$(ssh-agent -s)"
-
 # User configuration
 export LANG=en_GB.UTF-8
 export EDITOR='nvim'
-export BROWSER='~/.local/bin/firefox'
+export BROWSER='~/.bin/firefox'
 export MAKEFLAGS="-j24"
-export GOPRIVATE=$(cat $ZHOME/.goprivate)
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
 #export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 
@@ -39,9 +33,6 @@ unset SSH_ASKPASS
 unsetopt complete_aliases
 
 alias fucking='sudo'
-alias ls='exa $@ --git'
-alias l='ls -alh'
-alias ll='ls -algh'
 alias rm='safe-rm'
 alias vim='nvim'
 alias wget='wget -4 $@'
@@ -51,25 +42,23 @@ alias getid="sleep 2 && swaymsg -t get_tree | jq -r '..|try select(.focused == t
 alias setborder="sleep 2 && swaymsg border normal"
 alias setnoborder="sleep 2 && swaymsg border none"
 alias lsdd="lsof -P -T -p $@"
+alias musikcube="TERM=xterm musikcube"
 #alias docker="podman"
+
+# rust utils
+alias ls="exa $@ --git"
+alias l="ls -alh"
+alias ll="ls -algh"
+#alias cat="bat"
+alias du="dust"
+alias tmux="zellij"
+alias grep="rg"
 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias zshrc="$EDITOR ~/.zshrc && source ~/.zshrc"
-alias youtube-dl="youtube-dl --proxy=socks5://10.0.25.1:1080/ $@"
-
-# Nintendo Switch hacking
-alias fusee-launcher="python3 $FUSEE/fusee-launcher.py"
-alias fusee-boot="sudo python3 $FUSEE/fusee-launcher.py $HBDIR/hekate_ctcaer_5.0.2.bin"
-export FUSEE=$ZHOME/git/switch/fusee-launcher
-export HBDIR=/mnt/storage/Switch/homebrew/
-
-export DEVKITPRO=/opt/devkitpro
-export DEVKITARM=/opt/devkitpro/devkitARM
-export DEVKITPPC=/opt/devkitpro/devkitPPC
+alias youtube-dl="youtube-dl --proxy=socks5://10.0.20.2:1080/ $@"
 
 compdef lsdd="lsof"
-
-export ANDROID_NDK_HOME=/opt/android-ndk-r20b
 
 manpdf() {
     man -t $1 | ps2pdf - /tmp/$1.pdf
@@ -82,11 +71,10 @@ mcsh() { machinectl shell .host /bin/zsh }
 mpv-yt() { mpv --ytdl-raw-options=proxy=[socks5://10.0.25.1:1080] $@ }
 ssh-yubi() { ssh-keygen -D /usr/lib64/libykcs11.so.1 -e }
 
-cs() { cd /mnt/storage/Games/Nintendo/Switch; ls }
-cdf() { cd ~/git/dotfiles }
 cdxyz() { cd ~/go/src/git.0cd.xyz/0cd.xyz/0cd.xyz-go }
 cdgo () { cd ~/go/src/git.0cd.xyz/$@ }
 cdpico() { cd ~/pico }
+cdrs() { cd ~/Documents/Development/rust }
 
 # docker commands
 dps() { docker ps $@ --format="table {{.ID}}\\t{{.Image}}\\t{{.Command}}\\t{{.Status}}" }
@@ -116,16 +104,9 @@ blockdump() {
     whois -H $IP
 }
 
-commands() {code -n ~/Documents/Development/documentation/commands.md }
 ip-origin() { curl http://api.db-ip.com/v2/free/$1 }
 mac-address() { sed 's/:/-/g' <<< $@; }
-check_dir() { du -kxcsh *; ls -1 * | wc -l; }
-lp_send() { lp -h 10.0.20.2:631 -d envy_5530 $@; }
-vfio-check() {
-    lspci -nnk -d 1002:67df
-    lspci -nnk -d 1022:1457
-    lspci -nnk -d 10ec:8168
-    lspci -nnk -d 1022:43b9
-}
+#check_dir() { du -kxcsh *; ls -1 * | wc -l; }
+check_dir() { et --level 1 --sort size --ignore-git-ignore }
 
 autoload -U +X bashcompinit && bashcompinit

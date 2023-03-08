@@ -1,21 +1,12 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
+    "layer": "top",
+    "position": "top",
+    "height": 30,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/hue","cpu", "memory", "pulseaudio", "network", "disk", "clock", "tray"],
-    "sway/mode": {
+    "modules-right": ["custom/hue","cpu", "memory", "pulseaudio", "network", "network#wifi", "network#wg", "disk", "clock", "tray"],
+    "sway/mode":  {
         "format": "<span style=\"italic\">{}</span>"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
     },
     "wlr/taskbar": {
 	    "format": "{icon}",
@@ -29,32 +20,6 @@
         "format": "{}",
         "max-length": 50,
         "icon": false,
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "tray": {
         "spacing": 10
@@ -102,15 +67,24 @@
         "format-ethernet": "{ipaddr}/{cidr} 󰈀",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
     },
     "network#wifi": {
-        "interface": "wlan0",
+        "interface": "wlp8s0",
         "family": "ipv4",
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected":"",
         //"format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname}: {frequency}Ghz"
+    },
+    "network#wg": {
+        "interface": "wg0",
+        "family": "ipv4",
+        "format-ethernet": "{ipaddr}/{cidr} 󱂇",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
@@ -149,7 +123,7 @@
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
-            "spotify": "",
+            "spotify": "󰓇",
             "default": "🎜"
         },
         "escape": true,
@@ -157,11 +131,15 @@
         "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
     "custom/hue": {
-        "format": "󰌵 {}",
+        "format": "{icon} {}",
         "return-type": "json",
         "exec": "~/go/bin/huebar",
         "interval": 30,
         "exec-on-event": true,
+        "format-icons": {
+            "off": "󰹏",
+            "default": "󰌵"
+        },
         "on-scroll-up": "~/go/bin/huebar -inc",
         "on-scroll-down": "~/go/bin/huebar -dec",
         "on-click": "~/go/bin/huebar -toggle"
