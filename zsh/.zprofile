@@ -11,8 +11,8 @@ export PICO=$HOME/pico
 export PICO_SDK_PATH=$HOME/.apps/pico-sdk
 export BL60X_SDK_PATH=$HOME/git/bl602/bl_iot_sdk
 export CONFIG_CHIP_NAME=BL602
-#export CMAKE_C_COMPILER=/usr/bin/arm-none-eabi-gcc
-#export CMAKE_CXX_COMPILER=/usr/bin/arm-none-eabi-g++
+export CMAKE_C_COMPILER=/usr/lib64/ccache/arm-none-eabi-gcc
+export CMAKE_CXX_COMPILER=/usr/lib64/ccache/arm-none-eabi-g++
 export FLYCTL_INSTALL=$HOME/.fly
 
 export PATH=$PATH:/home/michael/.local/bin:$HOME/.bin:$GOPATH/bin:/usr/local/go/bin:/bin:$NXTOOLS/bin:$FLYCTL_INSTALL/bin:$LINARO/bin:$LIN/bin

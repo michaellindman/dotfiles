@@ -4,7 +4,7 @@
     "height": 30,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/hue","cpu", "memory", "pulseaudio", "network", "network#wifi", "network#wg", "disk", "clock", "tray"],
+    "modules-right": ["custom/hue","cpu", "memory", "pulseaudio", "custom/powerbar", "network", "network#wifi", "network#wg", "disk", "clock", "tray"],
     "sway/mode":  {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -133,15 +133,25 @@
     "custom/hue": {
         "format": "{icon} {}",
         "return-type": "json",
-        "exec": "~/go/bin/huebar",
+        "exec": "~/.cargo/bin/huebar",
         "interval": 30,
         "exec-on-event": true,
         "format-icons": {
             "off": "󰹏",
             "default": "󰌵"
         },
-        "on-scroll-up": "~/go/bin/huebar -inc",
-        "on-scroll-down": "~/go/bin/huebar -dec",
-        "on-click": "~/go/bin/huebar -toggle"
-    }
+        "on-scroll-up": "~/.cargo/bin/huebar -inc",
+        "on-scroll-down": "~/.cargo/bin/huebar -dec",
+        "on-click": "~/.cargo/bin/huebar -toggle"
+    },
+    "custom/powerbar": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "exec": "~/.cargo/bin/powerbar",
+        "interval": 30,
+        "exec-on-event": true,
+        "format-icons": {
+            "default": "󰍽"
+        },
+    },
 }

@@ -56,7 +56,7 @@ alias grep="rg"
 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias zshrc="$EDITOR ~/.zshrc && source ~/.zshrc"
-alias youtube-dl="youtube-dl --proxy=socks5://10.0.20.2:1080/ $@"
+alias youtube-dl="youtube-dl --proxy=socks5://10.0.20.6:1080/ $@"
 
 compdef lsdd="lsof"
 
